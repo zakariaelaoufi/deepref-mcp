@@ -3,3 +3,4 @@ semanticscholar
 mcp
 mcp[cli]
 uv
+pydantic

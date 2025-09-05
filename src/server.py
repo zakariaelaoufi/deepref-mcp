@@ -7,7 +7,7 @@ mcp = FastMCP(
     port=8085,
 )
 
-from src.tools.search import register_tools
+from tools.search import register_tools
 register_tools(mcp)
 
 if __name__ == "__main__":

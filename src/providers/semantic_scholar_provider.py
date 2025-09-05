@@ -9,11 +9,12 @@ class SemanticScholarProvider:
 
     def search_sch(self, query: str, limit: int = 5) -> List[Paper]:
         results = self.sch.search_paper(query=query, limit=1, open_access_pdf=True, bulk=True, )
-        print(len(results))
         papers = []
 
-        i = 1
-        for result in results:
+        for i, result in enumerate(results):
+            if i >= limit:
+                break
+
             papers.append(
                 Paper(
                     title=result.title,
@@ -30,10 +31,6 @@ class SemanticScholarProvider:
                     citation_count=result.citationCount,
                 )
             )
-            # break
-            if i == limit:
-                break
-            i+=1
         return papers
 
 
