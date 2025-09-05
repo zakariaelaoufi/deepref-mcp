@@ -12,6 +12,7 @@ class Paper(BaseModel):
     doi: Optional[str] = None
     arxiv_id: Optional[str] = None
     semantic_scholar_id: Optional[str] = None
+    pubmed_id: Optional[str] = None
     url: Optional[HttpUrl] = None
     pdf_url: Optional[HttpUrl] = None
     categories: List[str] = []

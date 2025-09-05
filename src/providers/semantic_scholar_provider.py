@@ -8,6 +8,7 @@ class SemanticScholarProvider:
         self.sch = SemanticScholar()
 
     def search_sch(self, query: str, limit: int = 5) -> List[Paper]:
+        """Search Semantic Scholar for papers."""
         results = self.sch.search_paper(query=query, limit=1, open_access_pdf=True, bulk=True, )
         papers = []
 
