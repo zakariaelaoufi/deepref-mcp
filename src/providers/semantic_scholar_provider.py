@@ -1,7 +1,6 @@
 from semanticscholar import SemanticScholar
 from typing import List
 from src.models.paper import Paper
-from datetime import datetime
 
 
 class SemanticScholarProvider:

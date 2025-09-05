@@ -1,5 +1,4 @@
 from mcp.server.fastmcp import FastMCP
-from ..src.tools import search
 
 mcp = FastMCP(
     name="Researcher MCP",
@@ -8,6 +7,8 @@ mcp = FastMCP(
     port=8085,
 )
 
+from src.tools.search import register_tools
+register_tools(mcp)
 
 if __name__ == "__main__":
     mcp.run(transport='stdio')
