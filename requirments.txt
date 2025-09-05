@@ -1,0 +1,5 @@
+arxiv
+semanticscholar
+mcp
+mcp[cli]
+uv
