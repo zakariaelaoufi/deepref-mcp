@@ -1,5 +1,5 @@
 import arxiv
-from src.models.paper import Paper
+from models.paper import Paper
 from typing import List
 
 

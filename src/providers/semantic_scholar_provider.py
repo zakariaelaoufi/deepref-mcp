@@ -1,6 +1,6 @@
 from semanticscholar import SemanticScholar
 from typing import List
-from src.models.paper import Paper
+from models.paper import Paper
 
 
 class SemanticScholarProvider:

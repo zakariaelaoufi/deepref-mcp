@@ -1,7 +1,7 @@
-from src.models.paper import Paper
+from models.paper import Paper
 from typing import List
-from src.providers.arXiv_provider import ArxivProvider
-from src.providers.semantic_scholar_provider import SemanticScholarProvider
+from providers.arXiv_provider import ArxivProvider
+from providers.semantic_scholar_provider import SemanticScholarProvider
 
 async def search_papers(query: str, max_results: int = 10, sources: List[str]=None) -> List[Paper] | None:
     results = []
@@ -9,12 +9,13 @@ async def search_papers(query: str, max_results: int = 10, sources: List[str]=No
     if sources is None:
         sources = ['arXiv', 'semanticscholar']
     for source in sources:
+        print('hello')
         if source == 'arXiv':
             arxiv_provider = ArxivProvider()
-            results.append(arxiv_provider.search_arxiv(query=query, max_results=max_results))
+            results.extend(arxiv_provider.search_arxiv(query=query, max_results=max_results))
         elif source == 'semanticscholar':
             scholar_provider = SemanticScholarProvider()
-            results.append(scholar_provider.search_sch(query=query, limit=max_results))
+            results.extend(scholar_provider.search_sch(query=query, limit=max_results))
         else:
             raise Exception(f"Unknown source: {source}")
     return results
