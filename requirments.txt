@@ -4,3 +4,4 @@ mcp
 mcp[cli]
 uv
 pydantic
+pubmed_sdk
