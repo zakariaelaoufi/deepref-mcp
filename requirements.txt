@@ -5,3 +5,4 @@ mcp[cli]
 uv
 pydantic
 pubmed_sdk
+openai-agents

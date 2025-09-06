@@ -1,12 +1,19 @@
 from models.paper import Paper
-from typing import List
+from typing import List, Optional
 from providers.arXiv_provider import ArxivProvider
 from providers.semantic_scholar_provider import SemanticScholarProvider
 from providers.pubmed_provider import PubMedProvider
 
-async def search_papers(query: str, max_results: int = 10, sources: List[str]=None) -> List[Paper] | None:
+async def search_papers(query: str, max_results: int = 10, sources: Optional[List[str]]=None) -> List[Paper]:
     results = []
-    """Search for academic papers across multiple databases."""
+    """
+    Search for academic papers across multiple databases.
+
+    Args:
+        query: The user query.
+        max_results: The maximum number of papers to return from each database.
+        sources: The databases to fetch papers from. Defaults to arXiv, Semantic Scholar, and PubMed.
+    """
     if sources is None:
         sources = ['arXiv', 'semanticscholar', 'pubmed']
     for source in sources:
