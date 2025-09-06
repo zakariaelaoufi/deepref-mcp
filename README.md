@@ -109,10 +109,10 @@ python .\example\deepref_assistant.py
 
 <!-- Screenshots section - add your demo images here -->
 
+### MCP Inspector
+<img width="1919" height="911" alt="Capture d'écran 2025-09-06 175116" src="https://github.com/user-attachments/assets/51cb15c8-a609-4204-8a0c-39a3ea821265" />
+
 ### Search Results
-<div margin=50>
-  <img width="1869" height="839" alt="Capture d'écran 2025-09-06 170403" src="https://github.com/user-attachments/assets/6c2f24de-f2eb-4019-96ec-1008625418cd" />
-</div>
 <img width="1817" height="611" alt="Capture d'écran 2025-09-06 172119" src="https://github.com/user-attachments/assets/e4b3a48b-c6e2-4ae0-ab6f-1175c3ddbede" />
 
 ## 🔧 Configuration
