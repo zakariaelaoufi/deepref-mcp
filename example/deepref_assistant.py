@@ -2,65 +2,55 @@ import asyncio
 import uuid
 from agents import Agent, Runner, SQLiteSession
 from agents.mcp import MCPServerStdio
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
-async def build_agent() -> Agent:
-    """Initialize and return a configured agent."""
+# Set up and create the agent
+async def build_agent():
     server = MCPServerStdio(
         params={
             "command": "uv",
-            "args": ["run", "--with", "mcp", "mcp", "run", "src/server.py"],
+            "args": ["run", "--with", "mcp", "mcp", "run", "src/server.py"]
         }
     )
+
     await server.connect()
 
-    return Agent(
+    # Create and return the agent
+    agent = Agent(
         name="DeepRef Copilot Assistant",
-        instructions=(
-            "You are a helpful assistant capable of reading from a variety of "
-            "research paper databases (e.g., arXiv, PubMed, Semantic Scholar). "
-            "Answer each question precisely."
-        ),
-        # model=,
+        instructions= "You are a helpful assistant capable of reading from a variety of research paper databases (e.g., arXiv, PubMed, Semantic Scholar). Answer each question precisely.",
         mcp_servers=[server],
     )
 
+    return agent
 
-async def cli_interaction(agent: Agent) -> None:
-    """Interactive CLI for querying the agent."""
-    print("🔧 DeepRef Copilot Assistant — Ask me something (type 'exit' to quit):\n")
+# CLI interaction
+async def cli_interaction(agent: Agent):
+    print("🔧 Deepref Copilot Assistant — Ask me something (type 'exit' to quit):\n")
 
+    random_uuid = uuid.uuid4()
     session = SQLiteSession(
-        f"conversation_{uuid.uuid4()}",
+        f"conversation_{random_uuid}",
         "conversations.db"
     )
 
-    loop = asyncio.get_event_loop()
-
     while True:
-        try:
-            query = await loop.run_in_executor(None, input, "> ")
-        except (EOFError, KeyboardInterrupt):
-            print("\n👋 Exiting gracefully...")
+        query = input("> ")
+        if query.strip().lower() in {"exit", "quit"}:
             break
-
-        query = query.strip()
-        if not query:
-            continue
-        if query.lower() in {"exit", "quit"}:
-            break
-
-        result = Runner.run(agent, query, session=session)
-        print(result.final_output)
+        if len(query.strip()) > 0:
+            result = await Runner.run(agent, query,session=session)
+            print(result.final_output)
 
 
-async def main() -> None:
+# Main entry point
+async def main():
     agent = await build_agent()
     await cli_interaction(agent)
 
-
 if __name__ == "__main__":
-    try:
-        asyncio.run(main())
-    except KeyboardInterrupt:
-        print("\n⚡ Program interrupted by user.")
+    asyncio.run(main())
