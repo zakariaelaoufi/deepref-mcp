@@ -4,7 +4,7 @@ from providers.arXiv_provider import ArxivProvider
 from providers.semantic_scholar_provider import SemanticScholarProvider
 from providers.pubmed_provider import PubMedProvider
 
-async def search_papers(query: str, max_results: int = 10, sources: Optional[List[str]]=None) -> List[Paper]:
+async def search_papers(query: str, max_results: int = 10, sources: List[str]=None) -> List[Paper]:
     results = []
     """
     Search for academic papers across multiple databases.
@@ -15,13 +15,16 @@ async def search_papers(query: str, max_results: int = 10, sources: Optional[Lis
         sources: The databases to fetch papers from. Defaults to arXiv, Semantic Scholar, and PubMed.
     """
     if sources is None:
-        sources = ['arXiv', 'semanticscholar', 'pubmed']
+        sources = ['arxiv', 'semantic scholar', 'pubmed']
+    else:
+        sources = [word.lower() for word in sources]
+
     for source in sources:
         print('hello')
-        if source == 'arXiv':
+        if source == 'arxiv':
             arxiv_provider = ArxivProvider()
             results.extend(arxiv_provider.search_arxiv(query=query, max_results=max_results))
-        elif source == 'semanticscholar':
+        elif source == 'semantic scholar':
             scholar_provider = SemanticScholarProvider()
             results.extend(scholar_provider.search_sch(query=query, limit=max_results))
         elif source == 'pubmed':
